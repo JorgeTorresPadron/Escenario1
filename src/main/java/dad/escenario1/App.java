@@ -1,6 +1,7 @@
 package dad.escenario1;
 
 import dad.escenario1.modificar.ModificarController;
+import dad.escenario1.ver.VerController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,6 +9,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 	
 	private ModificarController modificarController;
+	private VerController verController;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -20,6 +22,18 @@ public class App extends Application {
 		modificarStage.setTitle("Modificar");
 		modificarStage.setScene(modificarScene);
 		modificarStage.show();
+		
+		//ver
+		verController = new VerController();
+		Scene verScene = new Scene(verController.getView(), 320, 200);
+		
+		Stage verStage = new Stage();
+		verStage.setTitle("Ver");
+		verStage.setScene(verScene);
+		verStage.show();
+		
+		//bindings
+		verController.getModel().valorProperty().bind(modificarController.getModel().valorProperty());
 		
 		modificarController.getModel().valorProperty().addListener((o, ov, nv) -> {
 		       System.out.println("antes valia " + ov + " y ahora valgo " + nv);                                                                    
